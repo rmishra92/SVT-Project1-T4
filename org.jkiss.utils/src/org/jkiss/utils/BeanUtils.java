@@ -83,7 +83,6 @@ public class BeanUtils {
         String propertyName,
         boolean ignoreCase) {
         String setName = "set" + propertyNameToMethodName(propertyName);
-
         return getSetMethod(
             cl.getMethods(),
             setName,
@@ -266,7 +265,6 @@ public class BeanUtils {
         boolean ignoreCase) {
         for (int i = 0; i < methods.length; i++) {
             Method method = methods[i];
-
             // The method name must match
             if (
                 !(ignoreCase ? method.getName().equalsIgnoreCase(setName) : method.getName().equals(setName)) ||
