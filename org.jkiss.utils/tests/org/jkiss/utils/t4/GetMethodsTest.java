@@ -14,6 +14,7 @@ import java.lang.reflect.Type;
 import java.lang.reflect.WildcardType;
 
 import org.jkiss.utils.BeanUtils;
+import org.jkiss.utils.t4.GetMethodTest2.GetTestClass9;
 import org.junit.Test;
 
 public class GetMethodsTest {
@@ -296,5 +297,25 @@ public class GetMethodsTest {
 			fail("Something wrong with test");
 		}
 
+	}
+	
+	public class SetTestClass9{
+		
+		public void setProperty(String property) {
+		}
+	}
+	
+	//18
+	@Test
+	public void classWithOneAndOnlyOneRightMethodNameShouldReturnTheMethod() {
+		try {
+			Method methodA = BeanUtils.getSetMethod(SetTestClass9.class, "property", true);
+			Method methodB = BeanUtils.getSetMethod(SetTestClass9.class, "property");
+			assertEquals(SetTestClass9.class.getMethod("setProperty", new Class<?>[] { String.class }), methodA);
+			assertEquals(SetTestClass9.class.getMethod("setProperty", new Class<?>[] { String.class }), methodB);
+		}
+		catch(Exception e) {
+			fail(e.getClass().getName());
+		}
 	}
 }

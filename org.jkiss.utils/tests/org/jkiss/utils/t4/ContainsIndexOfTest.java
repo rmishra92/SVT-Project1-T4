@@ -217,4 +217,11 @@ public class ContainsIndexOfTest {
 		assertTrue(ArrayUtils.contains(longArray, longValue));
 	}
 	
+	
+//	@Test
+//	public void contain2Test() {
+////		Object value = new O1();
+//		assertTrue(ArrayUtils.contains(objectArray, new O1(), new O2()));
+////		assertEquals(2, ArrayUtils.indexOf(objectArray, objectArray));
+//	}
 }

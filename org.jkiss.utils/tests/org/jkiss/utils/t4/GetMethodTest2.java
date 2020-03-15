@@ -366,4 +366,35 @@ public class GetMethodTest2 {
 			fail("Something wrong with test");
 		}
 	}
+	public class GetTestClass9{
+		
+		public String getProperty() {
+			return "property" ;
+		}
+	}
+	
+	//18
+	@Test
+	public void classWithOneAndOnlyOneRightMethodNameShouldReturnTheMethod() {
+		try {
+			Method methodA = BeanUtils.getGetMethod(GetTestClass9.class, "property", true);
+			Method methodB = BeanUtils.getGetMethod(GetTestClass9.class, "property");
+			assertEquals( GetTestClass9.class.getMethod("getProperty"), methodA);
+			assertEquals(GetTestClass9.class.getMethod("getProperty"), methodB);
+		}
+		catch(Exception e) {
+			fail(e.getClass().getName());
+		}
+	}
+	
+	//19
+	@Test
+	public void dub() {
+		GetTestClass9 spy = mock(GetTestClass9.class);
+		Method[] ms = spy.getClass().getMethods();
+		for(Method m:ms) {
+			System.out.println(m.getName());
+		}
+		assertTrue(true);
+	}
 }
