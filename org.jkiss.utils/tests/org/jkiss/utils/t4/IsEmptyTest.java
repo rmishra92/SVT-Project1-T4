@@ -1,4 +1,4 @@
-package org.jkiss.utils;
+package org.jkiss.utils.t4;
 
 import org.jkiss.utils.ArrayUtils;
 //import org.junit.Assert;
@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-public class ArrayUtilsTest0 {
+public class IsEmptyTest {
 	
 	@Test
 	public void isEmptyReturnTrueForNullIntArray() {
@@ -46,9 +46,39 @@ public class ArrayUtilsTest0 {
 	}
 	
 	@Test
-	public void containsReturnTrueForIntArrayContainingTheNeedle() {
-		int[] array = new int[]{1};
-		int needle = 1;
-		assertTrue(ArrayUtils.contains(array, needle));
+	public void isEmptyReturnTrueForNullShortArray() {
+		short[] array=null;
+		assertTrue(ArrayUtils.isEmpty(array));
 	}
+	
+	@Test
+	public void isEmptyReturnTrueForEmptyShortArray() {
+		short[] array=new short[0];
+		assertTrue(ArrayUtils.isEmpty(array));
+	}
+	
+	@Test
+	public void isEmptyReturnFalseForNorminalShortArray() {
+		short[] array=new short[1];
+		assertFalse(ArrayUtils.isEmpty(array));
+	}
+	
+	@Test
+	public void isEmptyReturnTrueForNullCharArray() {
+		Character[] array=null;
+		assertTrue(ArrayUtils.isEmpty(array));
+	}
+	
+	@Test
+	public void isEmptyReturnTrueForEmptyCharArray() {
+		Character[] array=new Character[0];
+		assertTrue(ArrayUtils.isEmpty(array));
+	}
+	
+	@Test
+	public void isEmptyReturnFalseForNorminalCharArray() {
+		Character[] array=new Character[] {'2'};
+		assertFalse(ArrayUtils.isEmpty(array));
+	}
+	
 }

@@ -1,9 +1,10 @@
-package org.jkiss.utils;
+package org.jkiss.utils.t4;
 
 import static org.junit.Assert.*;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import static org.mockito.Mockito.*;
 
@@ -12,6 +13,8 @@ import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.WildcardType;
+import java.lang.Class;
+
 
 import org.jkiss.utils.BeanUtils;
 import org.junit.Test;
@@ -253,8 +256,7 @@ public class GetMethodTest2 {
 //	@Test
 //	public void nominalMethodLocation() {
 //		try {
-//			Class<GetTestClass1> toBeSpy = GetTestClass1.class;
-//			Class<GetTestClass1> spy = spy(toBeSpy);
+//			Class<?> mocked = mock(Class.class);
 //			Method nonTarget = GetTestClass1.class.getMethod("setAny");
 //			Method target = GetTestClass1.class.getMethod("getProperty");
 //			Method[] methodList = new Method[] {
@@ -264,8 +266,8 @@ public class GetMethodTest2 {
 //					nonTarget,
 //					nonTarget
 //					};
-//			when(spy.getMethods()).thenReturn(methodList);
-//			Method methodA = BeanUtils.getGetMethod(spy, "property", true);
+//			when(mocked.getMethods()).thenReturn(methodList);
+//			Method methodA = BeanUtils.getGetMethod(mocked, "property", true);
 //			Method methodB = BeanUtils.getGetMethod(GetTestClass1.class, "property");
 //			assertEquals(methodA, target);
 //			assertEquals(methodB, target);

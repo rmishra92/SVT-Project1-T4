@@ -1,4 +1,4 @@
-package org.jkiss.utils;
+package org.jkiss.utils.t4;
 
 import static org.junit.Assert.*;
 import org.junit.Rule;
