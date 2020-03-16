@@ -461,4 +461,27 @@ public class ContainsIndexOfTest {
 		valueArray[2] = new O5();
 		assertTrue(ArrayUtils.contains(objectArray, valueArray));
 	}
+	
+	
+	//White-box for indexOf(Byte[], int, byte)
+	@Test
+	public void emptyByteArrayShouldReturnMinusOne() {
+		byte[] byteArray = new byte[0];
+		byte value = 3;
+		assertEquals(-1, ArrayUtils.indexOf(byteArray, 2, value));
+	}
+	
+	@Test
+	public void nonEmptyByteArrayWithNormalOffsetShouldReturnIndex() {
+		byte[] byteArray = new byte[] {1,2,3};
+		byte value = 1;
+		assertEquals(0, ArrayUtils.indexOf(byteArray, 0, value));
+	}
+		
+	@Test
+	public void nonEmptyByteArrayWithInvalidValueShouldReturnMinusOne() {
+		byte[] byteArray = new byte[] {1,2,3};
+		byte value = 4;
+		assertEquals(-1, ArrayUtils.indexOf(byteArray, 0, value));
+	}
 }

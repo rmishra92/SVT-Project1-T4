@@ -46,6 +46,27 @@ public class GetCollectionType {
 	}
 	
 	@Test
+	public void emptyGetActualTypeButMoreShouldGetNullAsResult(){
+		ParameterizedType parameterizedType = new ParameterizedType() {
+            @Override
+            public Type[] getActualTypeArguments() {
+                return new Type[]{};
+            }
+
+            @Override
+            public Type getRawType() {
+                return null;
+            }
+
+            @Override
+            public Type getOwnerType() {
+                return null;
+            }
+        };
+        assertNull(BeanUtils.getCollectionType(parameterizedType));
+	}
+	
+	@Test
 	public void nonWildCardNonClassTypeShouldGetNullAsResult(){
 		ParameterizedType parameterizedType = new ParameterizedType() {
             @Override
@@ -103,7 +124,7 @@ public class GetCollectionType {
 		WildcardType wildcardType = new WildcardType() {
 	        @Override
 	        public Type[] getUpperBounds() {
-	            return new Type[0];
+	            return new Type[] {};
 	        }
 	
 	        @Override
