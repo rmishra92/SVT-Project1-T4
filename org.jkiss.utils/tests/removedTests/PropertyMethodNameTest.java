@@ -1,4 +1,4 @@
-package org.jkiss.utils.t4;
+package removedTests;
 
 import static org.junit.Assert.*;
 import org.junit.Rule;

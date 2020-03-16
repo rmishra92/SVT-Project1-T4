@@ -1,9 +1,11 @@
-package org.jkiss.utils;
+package org.jkiss.utils.t4;
 
 import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.fail;
+
+import org.jkiss.utils.BeanUtils;
 
 public class GetDefaultPrimitiveValueTest {
 

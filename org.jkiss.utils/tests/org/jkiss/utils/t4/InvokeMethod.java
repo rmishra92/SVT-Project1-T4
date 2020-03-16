@@ -1,5 +1,6 @@
-package org.jkiss.utils;
+package org.jkiss.utils.t4;
 
+import org.jkiss.utils.BeanUtils;
 import org.junit.Assert;
 import org.junit.Test;
 

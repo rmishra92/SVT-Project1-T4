@@ -1,4 +1,4 @@
-package org.jkiss.utils.t4;
+package removedTests;
 
 import org.jkiss.utils.ArrayUtils;
 //import org.junit.Assert;
