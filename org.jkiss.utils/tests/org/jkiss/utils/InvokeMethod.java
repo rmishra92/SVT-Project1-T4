@@ -8,10 +8,16 @@ public class InvokeMethod {
     public static class TestStaticClass
     {
         public static Boolean isStaticMethodInvoked;
+        public static Boolean isStaticInAccessibleMethodInvoked;
 
         public static void testStaticMethod(Integer argument1, Integer argument2)
         {
             TestStaticClass.isStaticMethodInvoked = true;
+        }
+
+        private static void testStaticInAccessibleMethod(Integer argument1, Integer argument2)
+        {
+            TestStaticClass.isStaticInAccessibleMethodInvoked = true;
         }
     }
 
@@ -21,6 +27,17 @@ public class InvokeMethod {
                 new Class[]{Integer.class, Integer.class}, new Object[] {2, 3});
 
         Assert.assertTrue(TestStaticClass.isStaticMethodInvoked);
+    }
+
+    @Test
+    public void shouldThrowAnErrorUponInvokingAnInAccessibleMethod() throws Throwable {
+        try {
+            BeanUtils.invokeStaticMethod(TestStaticClass.class, "testStaticInAccessibleMethod",
+                    new Class[]{Integer.class, Integer.class}, new Object[] {2, 3});
+            Assert.fail("Should have thrown an exception for an inaccessible method");
+        } catch(Exception e) {
+            Assert.assertTrue(e.toString().contains("NoSuchMethodException"));
+        }
     }
 
     @Test

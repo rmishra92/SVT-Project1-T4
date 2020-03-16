@@ -27,6 +27,16 @@ public class IsOfTypeTest {
     }
 
     @Test
+    public void shouldReturnFalseForAnInvalidNullInput()
+    {
+        Boolean isArray = BeanUtils.isArrayType(null);
+        Boolean isCollection = BeanUtils.isCollectionType(null);
+
+        Assert.assertFalse(isArray);
+        Assert.assertFalse(isCollection);
+    }
+
+    @Test
     public void isArrayTypeShouldReturnsTrueForAnArrayTypeInput()
     {
         Integer[]  array = {1, 2, 3};
