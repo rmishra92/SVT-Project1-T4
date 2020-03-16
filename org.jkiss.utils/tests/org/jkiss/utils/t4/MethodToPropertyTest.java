@@ -157,4 +157,47 @@ public class MethodToPropertyTest {
 		pName = BeanUtils.methodNameToPropertyName("setd");
 		assertEquals("d", pName);
 	}
+	
+	
+	// Cyclomatic Whitebox tests
+	@Test
+	public void stringWithOnlyGetShouldReturnNull() {
+		String input = "get";
+		assertNull(BeanUtils.methodNameToPropertyName(input));
+	}
+	@Test
+	public void stringWithGetAbShouldReturnNull() {
+		String input = "getAb";
+		assertEquals( "ab", BeanUtils.methodNameToPropertyName(input));
+	}
+	@Test
+	public void stringWithGetAShouldReturnNull() {
+		String input = "getA";
+		assertEquals( "a", BeanUtils.methodNameToPropertyName(input));
+	}
+	@Test
+	public void stringWithGetABShouldReturnNull() {
+		String input = "getAB";
+		assertEquals( "AB", BeanUtils.methodNameToPropertyName(input));
+	}
+	@Test
+	public void stringWithabShouldReturnNull() {
+		String input = "getab";
+		assertEquals( "ab", BeanUtils.methodNameToPropertyName(input));
+	}
+	@Test
+	public void stringWithOnlySetShouldReturnNull() {
+		String input = "set";
+		assertNull(BeanUtils.methodNameToPropertyName(input));
+	}
+	@Test
+	public void stringWithOnlyIsShouldReturnNull() {
+		String input = "is";
+		assertNull(BeanUtils.methodNameToPropertyName(input));
+	}
+	@Test
+	public void stringWithEmptyShouldReturnNull() {
+		String input = "";
+		assertNull(BeanUtils.methodNameToPropertyName(input));
+	}
 }
