@@ -13,6 +13,8 @@ public class InvokeObjectMethodWithArguments {
         {
             isMethodInvoked = true;
         }
+		
+		public void testMethodWithException(String arg1) throws Exception { throw new Exception("Method Invocation error"); }
 
         private void testInAccessibleMethod(String arg1)
         {
@@ -85,6 +87,18 @@ public class InvokeObjectMethodWithArguments {
             Assert.fail("Should have thrown an error for non existing method invocation");
         } catch (Exception e) {
             Assert.assertTrue(e.toString().contains("NoSuchMethodException"));
+        }
+    }
+	
+	@Test
+    public void shouldExpectASimilarErrorAsRaisedByTargetMethodUponInvocation() throws Throwable {
+        try {
+            TestClass obj = new TestClass();
+            BeanUtils.invokeObjectMethod(obj, "testMethodWithException",
+                    new Class[] { String.class }, new Object[] { "Test" });
+            Assert.fail("Should have thrown an error for a target method raising an issue.");
+        } catch (Exception e) {
+            Assert.assertTrue(e.getMessage().equals("Method Invocation error"));
         }
     }
 }
