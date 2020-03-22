@@ -1,11 +1,11 @@
-package removedTests;
+package org.jkiss.utils.t4;
 
 import static org.junit.Assert.*;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.junit.runner.RunWith;
 import org.mockito.Mockito;
+
 import static org.mockito.Mockito.*;
 
 import java.lang.reflect.InvocationTargetException;
@@ -13,7 +13,6 @@ import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.WildcardType;
-import java.lang.Class;
 
 import org.jkiss.utils.BeanUtils;
 import org.junit.Test;
@@ -24,6 +23,10 @@ public class GetGetMethodTest {
 
 		}
 
+		public void setProperty(String str) {
+
+		}
+		
 		public String getProperty() {
 			return "";
 		}
@@ -32,6 +35,7 @@ public class GetGetMethodTest {
 	// 1
 	@Test
 	public void baseCaseForValiditySetMethods() {
+		
 		try {
 			Method methodA = BeanUtils.getGetMethod(TestClass1.class, "property", true);
 			Method methodB = BeanUtils.getGetMethod(TestClass1.class, "property");
@@ -47,24 +51,26 @@ public class GetGetMethodTest {
 	// 2
 	@Test
 	public void invalidClassWithNominalPropertyName() {
+		
 		try {
 			Method methodA = BeanUtils.getGetMethod(null, "property", true);
 			Method methodB = BeanUtils.getGetMethod(null, "property");
 		} catch (Exception e) {
 			assertEquals(NullPointerException.class, e.getClass());
 		}
-
 	}
 
 	// 3
 	@Test
 	public void nominalClassWithNullPropertyName() {
+		
 		try {
 			Method methodA = BeanUtils.getGetMethod(TestClass1.class, null, true);
 			Method methodB = BeanUtils.getGetMethod(TestClass1.class, null);
 		} catch (Exception e) {
 			assertEquals(NullPointerException.class, e.getClass());
 		}
+
 
 	}
 
@@ -74,6 +80,7 @@ public class GetGetMethodTest {
 	// 4
 	@Test
 	public void lowerClassMultplicityWithNominalPropertyNameShouldReturnNull() {
+		
 		Method methodA = BeanUtils.getGetMethod(TestClass2.class, "property", false);
 		Method methodB = BeanUtils.getGetMethod(TestClass2.class, "property");
 		assertNull(methodA);
@@ -85,6 +92,7 @@ public class GetGetMethodTest {
 	// 6
 	@Test
 	public void nominalClassMultplicityWithLowerPropertyWithoutTheMethodNameShouldThrowError() {
+		
 		try {
 			Method methodA = BeanUtils.getGetMethod(TestClass1.class, "", false);
 			Method methodB = BeanUtils.getGetMethod(TestClass1.class, "");
@@ -97,6 +105,7 @@ public class GetGetMethodTest {
 	// 7
 	@Test
 	public void lowerClassMultplicityWithLowerPropertyWithoutTheMethodNameShouldThrowError() {
+		
 		try {
 			Method methodA = BeanUtils.getGetMethod(TestClass2.class, "", true);
 			Method methodB = BeanUtils.getGetMethod(TestClass2.class, "");
@@ -110,15 +119,18 @@ public class GetGetMethodTest {
 	// 9
 	@Test
 	public void nominalClassMultplicityWithlowerPlus1PropertyWithoutTheMethodNameShouldReturnNull() {
+		
 		Method methodA = BeanUtils.getGetMethod(TestClass1.class, "a", true);
 		Method methodB = BeanUtils.getGetMethod(TestClass1.class, "a");
 		assertNull(methodA);
 		assertNull(methodB);
 	}
+	
 
 	// 10
 	@Test
 	public void lowerClassMultplicityWithlowerPlus1PropertyWithoutTheMethodNameShouldReturnNull() {
+		
 		Method methodA = BeanUtils.getGetMethod(TestClass2.class, "a", true);
 		Method methodB = BeanUtils.getGetMethod(TestClass2.class, "a");
 		assertNull(methodA);
@@ -168,6 +180,10 @@ public class GetGetMethodTest {
 
 		}
 
+		private void setProperty(String str) {
+
+		}
+		
 		private String getProperty() {
 			return "";
 		}
@@ -176,6 +192,16 @@ public class GetGetMethodTest {
 	// 15
 	@Test
 	public void nominalClassMultplicityWithnominalPropertyWithTheMethodNameInSameCaseButPrivateShouldReturnNullForTrueIgnoreCase() {
+		try {
+			Method methodA = BeanUtils.getSetMethod(TestClass4.class, "property", false);
+			Method methodB = BeanUtils.getSetMethod(TestClass4.class, "property");
+			assertNull(methodA);
+			assertNull(methodB);
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail("Something wrong with test");
+		}
+		
 		try {
 			Method methodA = BeanUtils.getGetMethod(TestClass4.class, "property", false);
 			Method methodB = BeanUtils.getGetMethod(TestClass4.class, "property");
@@ -191,6 +217,8 @@ public class GetGetMethodTest {
 	// 16
 	@Test
 	public void nominalClassMultplicityWithnominalPropertyWithTheMethodNameInDifferentCaseShouldReturnNullForFalseIgnoreCase() {
+		
+		
 		try {
 			Method methodA = BeanUtils.getGetMethod(TestClass1.class, "proPerty", false);
 			Method methodB = BeanUtils.getGetMethod(TestClass1.class, "proPerty");
@@ -206,6 +234,8 @@ public class GetGetMethodTest {
 	// 17
 	@Test
 	public void nominalClassMultplicityWithnominalPropertyWithTheMethodNameInDifferentCaseAndPrivateShouldReturnNullForTrueIgnoreCase() {
+		
+		
 		try {
 			Method methodA = BeanUtils.getGetMethod(TestClass4.class, "proPerty", false);
 			Method methodB = BeanUtils.getGetMethod(TestClass4.class, "proPerty");
@@ -217,14 +247,15 @@ public class GetGetMethodTest {
 		}
 
 	}
-
+	
 	// 18
 //	@Test
 //	public void nominalMethodLocation() {
 //		try {
-//			Class<?> mocked = mock(Class.class);
+//			Class<TestClass1> toBeSpy = TestClass1.class;
+//			Class<TestClass1> spy = spy(toBeSpy);
 //			Method nonTarget = TestClass1.class.getMethod("setAny");
-//			Method target = TestClass1.class.getMethod("getProperty");
+//			Method target = TestClass1.class.getMethod("setProperty", new Class<?>[] { String.class });
 //			Method[] methodList = new Method[] {
 //					nonTarget,
 //					nonTarget,
@@ -232,9 +263,9 @@ public class GetGetMethodTest {
 //					nonTarget,
 //					nonTarget
 //					};
-//			when(mocked.getMethods()).thenReturn(methodList);
-//			Method methodA = BeanUtils.getGetMethod(mocked, "property", true);
-//			Method methodB = BeanUtils.getGetMethod(TestClass1.class, "property");
+//			when(spy.getMethods()).thenReturn(methodList);
+//			Method methodA = BeanUtils.getSetMethod(spy, "property", true);
+//			Method methodB = BeanUtils.getSetMethod(TestClass1.class, "property");
 //			assertEquals(methodA, target);
 //			assertEquals(methodB, target);
 //		} catch (Exception e) {
@@ -243,19 +274,22 @@ public class GetGetMethodTest {
 //		}
 //
 //	}
-	public class TestClass5 {
+	public class TestClass5{
 		public void setAny() {
-
+			
 		}
-
+		public void setProperty() {
+			
+		}
 		public String getProperty(String str) {
 			return "";
 		}
 	}
-
-	// 23
+	//23
 	@Test
 	public void classWithRightMethodNameButNoParamenterShouldReturnNull() {
+		
+		
 		try {
 			Method methodA = BeanUtils.getGetMethod(TestClass5.class, "property", true);
 			Method methodB = BeanUtils.getGetMethod(TestClass5.class, "property");
@@ -265,21 +299,45 @@ public class GetGetMethodTest {
 			e.printStackTrace();
 			fail("Something wrong with test");
 		}
-
 	}
-
-	public class TestClass6 {
+	
+	public class TestClass9{
+		
+		public void setProperty(String property) {
+		}
+		
+		public String getProperty() {
+			return "property";
+		}
+	}
+	
+	//18
+	@Test
+	public void classWithOneAndOnlyOneRightMethodNameShouldReturnTheMethod() {
+		try {
+			Method methodA = BeanUtils.getGetMethod(TestClass9.class, "property", true);
+			Method methodB = BeanUtils.getGetMethod(TestClass9.class, "property");
+			assertEquals(TestClass9.class.getMethod("getProperty"), methodA);
+			assertEquals(TestClass9.class.getMethod("getProperty"), methodB);
+		}
+		catch(Exception e) {
+			fail(e.getClass().getName());
+		}
+	}
+	public class TestClass7 {
 		public void setAny() {
 
 		}
 
-		public void getProperty() {
+		public String isProperty() {
+			return "";
 		}
 	}
 
-	// 24
+	// 25
 	@Test
-	public void classWithRightMethodNameButNoReturnShouldReturnNull() {
+	public void classWithRightMethodNameIsButNotBooleanReturnShouldReturnNull() {
+		
 		try {
 			Method methodA = BeanUtils.getGetMethod(TestClass5.class, "property", true);
 			Method methodB = BeanUtils.getGetMethod(TestClass5.class, "property");
@@ -291,6 +349,28 @@ public class GetGetMethodTest {
 		}
 	}
 
-	
+	public class TestClass8 {
+		public void setAny() {
+
+		}
+
+		public boolean isProperty() {
+			return true;
+		}
+	}
+
+	// 25
+	@Test
+	public void classWithRightMethodNameIsShouldReturnMethod() {
+		try {
+			Method methodA = BeanUtils.getGetMethod(TestClass8.class, "property", true);
+			Method methodB = BeanUtils.getGetMethod(TestClass8.class, "property");
+			assertEquals(TestClass8.class.getMethod("isProperty"), methodA);
+			assertEquals(TestClass8.class.getMethod("isProperty"), methodB);
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail("Something wrong with test");
+		}
+	}
 
 }

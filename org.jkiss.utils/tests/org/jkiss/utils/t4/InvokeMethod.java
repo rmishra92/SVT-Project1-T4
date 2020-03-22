@@ -1,7 +1,10 @@
 package org.jkiss.utils.t4;
 
+import java.lang.reflect.InvocationTargetException;
+
 import org.jkiss.utils.BeanUtils;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 public class InvokeMethod {
@@ -21,6 +24,12 @@ public class InvokeMethod {
             TestStaticClass.isStaticInAccessibleMethodInvoked = true;
         }
     }
+    
+    @Before
+    public void setUp() {
+    	TestStaticClass.isStaticInAccessibleMethodInvoked = false;
+    	TestStaticClass.isStaticMethodInvoked = false;
+    }
 
     @Test
     public void shouldBeAbleToInvokeAnExistingStaticMethodWithValidArguments() throws Throwable {
@@ -29,6 +38,7 @@ public class InvokeMethod {
 
         Assert.assertTrue(TestStaticClass.isStaticMethodInvoked);
     }
+    
 
     @Test
     public void shouldThrowAnErrorUponInvokingAnInAccessibleMethod() throws Throwable {

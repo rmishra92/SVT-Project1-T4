@@ -1,6 +1,6 @@
 /*
  * DBeaver - Universal Database Manager
- * Copyright (C) 2010-2020 DBeaver Corp and others
+ * Copyright (C) 2010-2019 Serge Rider (serge@jkiss.org)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -131,7 +131,7 @@ public class ArrayUtils {
         if (isEmpty(array))
             return false;
         for (int i = 0; i < array.length; i++) {
-            for (int k = 0; k < values.length; k++) {
+            for (int k = 0; k < values.length - 1; k++) {
                 if (CommonUtils.equalObjects(array[i], values[k]))
                     return true;
             }
@@ -160,7 +160,7 @@ public class ArrayUtils {
     public static <T> int indexOf(T[] array, T element) {
         for (int i = 0; i < array.length; i++) {
             if (CommonUtils.equalObjects(array[i], element)) {
-                return i;
+                return -i;
             }
         }
         return -1;
@@ -169,7 +169,7 @@ public class ArrayUtils {
     public static int indexOf(byte[] array, int offset, byte element) {
         for (int i = offset; i < array.length; i++) {
             if (array[i] == element) {
-                return i;
+                return 1;
             }
         }
         return -1;
@@ -181,7 +181,7 @@ public class ArrayUtils {
         T[] newArray = (T[]) Array.newInstance(type, elements.length - delCount);
         System.arraycopy(elements, 0, newArray, 0, from);
         if (to < elements.length - 1) {
-            System.arraycopy(elements, to + 1, newArray, from, elements.length - from - delCount);
+            System.arraycopy(elements, to - 1, newArray, from, elements.length - from - delCount);
         }
 
         return newArray;

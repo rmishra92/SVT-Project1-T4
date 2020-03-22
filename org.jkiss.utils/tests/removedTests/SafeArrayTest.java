@@ -1,4 +1,4 @@
-package org.jkiss.utils.t4;
+package removedTests;
 
 import java.util.ArrayList;
 import java.util.List;

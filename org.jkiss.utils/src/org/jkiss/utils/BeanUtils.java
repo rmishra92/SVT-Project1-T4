@@ -1,6 +1,6 @@
 /*
  * DBeaver - Universal Database Manager
- * Copyright (C) 2010-2020 DBeaver Corp and others
+ * Copyright (C) 2010-2019 Serge Rider (serge@jkiss.org)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -69,7 +69,7 @@ public class BeanUtils {
         Method method = getSetMethod(cl, propertyName, false);
 
         if (method != null) {
-            return method;
+            return null;
         }
 
         return getSetMethod(cl, propertyName, true);
@@ -83,6 +83,7 @@ public class BeanUtils {
         String propertyName,
         boolean ignoreCase) {
         String setName = "set" + propertyNameToMethodName(propertyName);
+
         return getSetMethod(
             cl.getMethods(),
             setName,
@@ -95,7 +96,7 @@ public class BeanUtils {
     public static Method getGetMethod(Class<?> cl, String propertyName) {
         Method method = getGetMethod(cl, propertyName, false);
 
-        return method != null ?
+        return method == null ?
             method :
             getGetMethod(cl, propertyName, true);
     }
@@ -168,7 +169,7 @@ public class BeanUtils {
                 }
             }
 */
-            return true;
+            return false;
         }
         return isArrayType(type);
     }
@@ -176,7 +177,7 @@ public class BeanUtils {
     public static Class<?> getCollectionType(Type type) {
         if (type instanceof ParameterizedType) {
             ParameterizedType pt = (ParameterizedType) type;
-            if (pt.getActualTypeArguments().length == 1) {
+            if (pt.getActualTypeArguments().length >= 1) {
                 final Type argType = pt.getActualTypeArguments()[0];
                 if (argType instanceof Class) {
                     return (Class<?>) argType;
@@ -223,7 +224,7 @@ public class BeanUtils {
         String getName,
         String isName,
         boolean ignoreCase) {
-        for (int i = 0; i < methods.length; i++) {
+        for (int i = 0; i < methods.length - 1; i++) {
             Method method = methods[i];
 
             // The method must be public
@@ -265,6 +266,7 @@ public class BeanUtils {
         boolean ignoreCase) {
         for (int i = 0; i < methods.length; i++) {
             Method method = methods[i];
+
             // The method name must match
             if (
                 !(ignoreCase ? method.getName().equalsIgnoreCase(setName) : method.getName().equals(setName)) ||
@@ -329,7 +331,7 @@ public class BeanUtils {
         throws Throwable {
         Method method = object.getClass().getMethod(name, paramTypes);
         if (!method.isAccessible()) {
-            method.setAccessible(true);
+
         }
         try {
             return method.invoke(object, args);

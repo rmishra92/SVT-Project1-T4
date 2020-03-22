@@ -6,11 +6,6 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.mockito.Mockito;
 
-import removedTests.GetGetMethodTest.TestClass1;
-import removedTests.GetGetMethodTest.TestClass2;
-import removedTests.GetGetMethodTest.TestClass4;
-import removedTests.GetGetMethodTest.TestClass5;
-
 import static org.mockito.Mockito.*;
 
 import java.lang.reflect.InvocationTargetException;
@@ -20,9 +15,13 @@ import java.lang.reflect.Type;
 import java.lang.reflect.WildcardType;
 
 import org.jkiss.utils.BeanUtils;
+import org.jkiss.utils.t4.GetGetMethodTest.TestClass1;
+import org.jkiss.utils.t4.GetGetMethodTest.TestClass2;
+import org.jkiss.utils.t4.GetGetMethodTest.TestClass4;
+import org.jkiss.utils.t4.GetGetMethodTest.TestClass5;
 import org.junit.Test;
 
-public class GetMethodTest {
+public class GetSetMethodTest {
 	public class TestClass1 {
 		public void setAny() {
 
@@ -49,16 +48,6 @@ public class GetMethodTest {
 			e.printStackTrace();
 			fail("Something wrong with test");
 		}
-		
-		try {
-			Method methodA = BeanUtils.getGetMethod(TestClass1.class, "property", true);
-			Method methodB = BeanUtils.getGetMethod(TestClass1.class, "property");
-			assertEquals(methodA, TestClass1.class.getMethod("getProperty"));
-			assertEquals(methodB, TestClass1.class.getMethod("getProperty"));
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail("Something wrong with test");
-		}
 
 	}
 
@@ -68,13 +57,6 @@ public class GetMethodTest {
 		try {
 			Method methodA = BeanUtils.getSetMethod(null, "property", true);
 			Method methodB = BeanUtils.getSetMethod(null, "property");
-		} catch (Exception e) {
-			assertEquals(NullPointerException.class, e.getClass());
-		}
-		
-		try {
-			Method methodA = BeanUtils.getGetMethod(null, "property", true);
-			Method methodB = BeanUtils.getGetMethod(null, "property");
 		} catch (Exception e) {
 			assertEquals(NullPointerException.class, e.getClass());
 		}
@@ -89,15 +71,6 @@ public class GetMethodTest {
 		} catch (Exception e) {
 			assertEquals(NullPointerException.class, e.getClass());
 		}
-		
-		try {
-			Method methodA = BeanUtils.getGetMethod(TestClass1.class, null, true);
-			Method methodB = BeanUtils.getGetMethod(TestClass1.class, null);
-		} catch (Exception e) {
-			assertEquals(NullPointerException.class, e.getClass());
-		}
-
-
 	}
 
 	public class TestClass2 {
@@ -108,11 +81,6 @@ public class GetMethodTest {
 	public void lowerClassMultplicityWithNominalPropertyNameShouldReturnNull() {
 		Method methodA = BeanUtils.getSetMethod(TestClass2.class, "property", false);
 		Method methodB = BeanUtils.getSetMethod(TestClass2.class, "property");
-		assertNull(methodA);
-		assertNull(methodB);
-		
-		methodA = BeanUtils.getGetMethod(TestClass2.class, "property", false);
-		methodB = BeanUtils.getGetMethod(TestClass2.class, "property");
 		assertNull(methodA);
 		assertNull(methodB);
 	}
@@ -130,13 +98,6 @@ public class GetMethodTest {
 			assertEquals(e.getClass(), StringIndexOutOfBoundsException.class);
 		}
 		
-		try {
-			Method methodA = BeanUtils.getGetMethod(TestClass1.class, "", false);
-			Method methodB = BeanUtils.getGetMethod(TestClass1.class, "");
-			fail("No Error Thrown");
-		} catch (Exception e) {
-			assertEquals(e.getClass(), StringIndexOutOfBoundsException.class);
-		}
 	}
 
 	// 7
@@ -150,13 +111,6 @@ public class GetMethodTest {
 			assertEquals(e.getClass(), StringIndexOutOfBoundsException.class);
 		}
 		
-		try {
-			Method methodA = BeanUtils.getGetMethod(TestClass2.class, "", true);
-			Method methodB = BeanUtils.getGetMethod(TestClass2.class, "");
-			fail("No Error Thrown");
-		} catch (Exception e) {
-			assertEquals(e.getClass(), StringIndexOutOfBoundsException.class);
-		}
 	}
 
 
@@ -167,11 +121,6 @@ public class GetMethodTest {
 		Method methodB = BeanUtils.getSetMethod(TestClass1.class, "a");
 		assertNull(methodA);
 		assertNull(methodB);
-		
-		methodA = BeanUtils.getGetMethod(TestClass1.class, "a", true);
-		methodB = BeanUtils.getGetMethod(TestClass1.class, "a");
-		assertNull(methodA);
-		assertNull(methodB);
 	}
 	
 
@@ -180,11 +129,6 @@ public class GetMethodTest {
 	public void lowerClassMultplicityWithlowerPlus1PropertyWithoutTheMethodNameShouldReturnNull() {
 		Method methodA = BeanUtils.getSetMethod(TestClass2.class, "a", true);
 		Method methodB = BeanUtils.getSetMethod(TestClass2.class, "a");
-		assertNull(methodA);
-		assertNull(methodB);
-		
-		methodA = BeanUtils.getGetMethod(TestClass2.class, "a", true);
-		methodB = BeanUtils.getGetMethod(TestClass2.class, "a");
 		assertNull(methodA);
 		assertNull(methodB);
 	}
@@ -198,10 +142,6 @@ public class GetMethodTest {
 		assertNull(methodA);
 		assertNull(methodB);
 		
-		methodA = BeanUtils.getGetMethod(TestClass1.class, "else", true);
-		methodB = BeanUtils.getGetMethod(TestClass1.class, "else");
-		assertNull(methodA);
-		assertNull(methodB);
 	}
 
 	// 13
@@ -217,15 +157,6 @@ public class GetMethodTest {
 			fail("Something wrong with test");
 		}
 		
-		try {
-			Method methodA = BeanUtils.getGetMethod(TestClass1.class, "proPerty", true);
-			Method methodB = BeanUtils.getGetMethod(TestClass1.class, "proPerty");
-			assertEquals(methodA, TestClass1.class.getMethod("getProperty"));
-			assertEquals(methodB, TestClass1.class.getMethod("getProperty"));
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail("Something wrong with test");
-		}
 	}
 
 	// 14
@@ -241,15 +172,6 @@ public class GetMethodTest {
 			fail("Something wrong with test");
 		}
 		
-		try {
-			Method methodA = BeanUtils.getGetMethod(TestClass1.class, "property", false);
-			Method methodB = BeanUtils.getGetMethod(TestClass1.class, "property");
-			assertEquals(methodA, TestClass1.class.getMethod("getProperty"));
-			assertEquals(methodB, TestClass1.class.getMethod("getProperty"));
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail("Something wrong with test");
-		}
 	}
 
 	public class TestClass4 {
@@ -279,15 +201,6 @@ public class GetMethodTest {
 			fail("Something wrong with test");
 		}
 		
-		try {
-			Method methodA = BeanUtils.getGetMethod(TestClass4.class, "property", false);
-			Method methodB = BeanUtils.getGetMethod(TestClass4.class, "property");
-			assertNull(methodA);
-			assertNull(methodB);
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail("Something wrong with test");
-		}
 
 	}
 
@@ -304,15 +217,6 @@ public class GetMethodTest {
 			fail("Something wrong with test");
 		}
 		
-		try {
-			Method methodA = BeanUtils.getGetMethod(TestClass1.class, "proPerty", false);
-			Method methodB = BeanUtils.getGetMethod(TestClass1.class, "proPerty");
-			assertNull(methodA);
-			assertEquals(methodB, TestClass1.class.getMethod("getProperty"));
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail("Something wrong with test");
-		}
 
 	}
 
@@ -329,15 +233,6 @@ public class GetMethodTest {
 			fail("Something wrong with test");
 		}
 		
-		try {
-			Method methodA = BeanUtils.getGetMethod(TestClass4.class, "proPerty", false);
-			Method methodB = BeanUtils.getGetMethod(TestClass4.class, "proPerty");
-			assertNull(methodA);
-			assertNull(methodB);
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail("Something wrong with test");
-		}
 
 	}
 	
@@ -391,15 +286,6 @@ public class GetMethodTest {
 			fail("Something wrong with test");
 		}
 		
-		try {
-			Method methodA = BeanUtils.getGetMethod(TestClass5.class, "property", true);
-			Method methodB = BeanUtils.getGetMethod(TestClass5.class, "property");
-			assertNull(methodA);
-			assertNull(methodB);
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail("Something wrong with test");
-		}
 	}
 	
 	public class TestClass9{
@@ -447,15 +333,6 @@ public class GetMethodTest {
 			fail("Something wrong with test");
 		}
 		
-		try {
-			Method methodA = BeanUtils.getGetMethod(TestClass5.class, "property", true);
-			Method methodB = BeanUtils.getGetMethod(TestClass5.class, "property");
-			assertNull(methodA);
-			assertNull(methodB);
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail("Something wrong with test");
-		}
 	}
 
 	public class TestClass8 {

@@ -1,29 +1,46 @@
 package org.jkiss.utils.t4;
 
 import org.jkiss.utils.ArrayUtils;
-import org.junit.Assert;
+import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class ConcatArrayTest {
 	@Test(expected = NullPointerException.class)
 	public void concatArraysThrowsExceptionForNullArrayOne() {
-		Assert.assertArrayEquals(new String[] { "a", "b" }, ArrayUtils.concatArrays(null, new String[] { "b" }));
+		ArrayUtils.concatArrays(null, new String[] { "d" , "e", "f" });
 	}
 
 	@Test
-	public void concatArraysReturnSizeOneArrayforEmptyArray1andLengthOneArrayTwo() {
-		Assert.assertArrayEquals(new String[] { "a" }, ArrayUtils.concatArrays(new String[] {}, new String[] { "a" }));
+	public void concatArraysReturnSizeOneArrayforEmptyArray1andNominalArrayTwo() {
+		assertArrayEquals(new String[] { "a","b","c" }, ArrayUtils.concatArrays(new String[] {}, new String[] { "a", "b", "c"  }));
 	}
 
 	@Test
-	public void concatArraysOneNominalandLengthOneArray() {
-		Assert.assertArrayEquals(new String[] { "a", "b", "c" },
-				ArrayUtils.concatArrays(new String[] { "a", "b" }, new String[] { "c" }));
+	public void concatArraysOneNominalandArrayTwoNominal() {
+		assertArrayEquals(new String[] { "a","d","e","f" },
+				ArrayUtils.concatArrays(new String[] { "a" }, new String[] { "d","e","f" }));
 	}
 
 	@Test
 	public void concatArrayTwoNominalArray() {
-		Assert.assertArrayEquals(new String[] { "a", "b", "c", "d" },
-				ArrayUtils.concatArrays(new String[] { "a", "b" }, new String[] { "c", "d" }));
+		assertArrayEquals(new String[] { "a", "b", "c", "d", "e", "f" },
+				ArrayUtils.concatArrays(new String[] { "a", "b", "c" }, new String[] { "d", "e", "f" }));
 	}
+	@Test(expected = NullPointerException.class)
+	public void concatArraysThrowsExceptionForNullArrayTwo() {
+		ArrayUtils.concatArrays(new String[] { "d","e", "f"}, null);
+		fail();
+	}
+
+	@Test
+	public void concatArraysReturnSizeOneArrayforLowerPlusOneArray2andNominalArrayOne() {
+		assertArrayEquals(new String[] { "a","b","c","d" }, ArrayUtils.concatArrays(new String[] {"a","b","c"}, new String[] { "d" }));
+	}
+
+	@Test
+	public void concatArraysOneNominalandLengthZeroArrayTwo() {
+		assertArrayEquals(new String[] { "a", "b", "c" },
+				ArrayUtils.concatArrays(new String[] { "a", "b", "c" }, new String[] {}));
+	}
+
 }
