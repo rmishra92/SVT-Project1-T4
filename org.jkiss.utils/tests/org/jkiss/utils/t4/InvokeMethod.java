@@ -15,6 +15,10 @@ public class InvokeMethod {
         {
             TestStaticClass.isStaticMethodInvoked = true;
         }
+		
+		public static void testStaticMethodWithException(Integer argument1, Integer argument2) throws Exception {
+            throw new Exception("Method Invocation error");
+        }
 
         private static void testStaticInAccessibleMethod(Integer argument1, Integer argument2)
         {
@@ -82,6 +86,17 @@ public class InvokeMethod {
             Assert.fail("Should have thrown an error for non existing method invocation");
         } catch (Exception e) {
             Assert.assertTrue(e.toString().contains("NoSuchMethodException"));
+        }
+    }
+	
+	@Test
+    public void shouldExpectASimilarErrorAsRaisedByTargetMethodUponInvocation() throws Throwable {
+        try {
+            BeanUtils.invokeStaticMethod(TestStaticClass.class, "testStaticMethodWithException",
+                    new Class[] { Integer.class, Integer.class}, new Object[] { 2, 3 });
+            Assert.fail("Should have thrown an error for a target method raising an issue.");
+        } catch (Exception e) {
+            Assert.assertTrue(e.getMessage().equals("Method Invocation error"));
         }
     }
 }
